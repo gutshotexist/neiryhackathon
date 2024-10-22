@@ -6,6 +6,7 @@ import TakeBreakActivity from "./TakeBreakActivity";
 import BottomBar from "./BottomBar";
 import { motion } from "framer-motion";
 import Confetti from "react-confetti";
+import Image from "next/image";
 
 const WorkGamificationApp = () => {
   const [showMeditation, setShowMeditation] = useState(false);
@@ -165,10 +166,12 @@ const WorkGamificationApp = () => {
       {showConfetti && <Confetti />}
       <header className="flex justify-between items-center mb-6">
         <div className="flex items-center">
-          <img
+          <Image
             src="/unnamed.png"
             alt="Аватар пользователя"
-            className="w-16 h-16 rounded-full mr-3 object-cover"
+            width={64}
+            height={64}
+            className="rounded-full mr-3 object-cover"
           />
           <div>
             <p className="text-gray-500 text-lg">С возвращением,</p>

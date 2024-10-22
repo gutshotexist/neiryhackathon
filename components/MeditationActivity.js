@@ -54,7 +54,7 @@ const MeditationActivity = ({ onClose }) => {
       }, 5000);
     }
     return () => clearInterval(interval);
-  }, [isActive, timeLeft, breathCycle]);
+  }, [isActive, timeLeft, breathCycle, totalDiamonds]);
 
   useEffect(() => {
     let breathInterval = null;

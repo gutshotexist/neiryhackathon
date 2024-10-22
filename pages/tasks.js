@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { tasks } from "../components/tasks";
 import {
   FaCheckCircle,
@@ -45,16 +45,12 @@ const Tasks = () => {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 1000); // Update every second for more dynamic feel
+    const interval = setInterval(fetchData, 5000); // Update every 5 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, []); // Remove checkAchievements from the dependency array
 
-  useEffect(() => {
-    checkTasks();
-  }, [apiData]);
-
-  const checkTasks = () => {
+  const checkTasks = useCallback(() => {
     const newProgress = { ...taskProgress };
     let pointsGained = 0;
     let tasksCompleted = 0;
@@ -87,7 +83,11 @@ const Tasks = () => {
       setTotalPoints((prevPoints) => prevPoints + pointsGained);
       setStreak((prevStreak) => prevStreak + tasksCompleted);
     }
-  };
+  }, [apiData, taskProgress, setTaskProgress, setTotalPoints, setStreak]);
+
+  useEffect(() => {
+    checkTasks();
+  }, [checkTasks]);
 
   const showNotification = (title, message) => {
     // TODO: Implement a custom notification component
